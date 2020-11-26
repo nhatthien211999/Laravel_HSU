@@ -24,8 +24,10 @@
           </div>
 
           {{-- profiles --}}
-          
-          @livewire('edit-profile',['profile'=> $user->profiles])
+          @if ($user->profiles !== null)
+            @livewire('edit-profile',['profile'=> $user->profiles])
+          @endif
+
           
           <div class="form-group">
               <input type="submit" class="form-control btn btn-primary" value="Update" >

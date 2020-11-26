@@ -25,7 +25,10 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required'
+            'email' => 'required',
+            'full_name'=> 'required',
+            'avatar'=> 'required',
+            'birthday'=> 'required',
         ];
     }
     public function messages()
@@ -33,6 +36,9 @@ class UserRequest extends FormRequest
         return [
             'name.required'=>'Nhập tên của bạn',
             'email.required'=>'Nhập email của bạn',
+            'full_name.required'=>'Nhập họ và tên của bạn',
+            'avatar.required'=>'Nhập avatar của bạn',
+            'birthday.required'=>'Nhập ngày sinh của bạn',
         ];
     }
 }

@@ -7,7 +7,7 @@
         <input type="text" class="form-control" value="{{$profile->address}}" name="address" >
         <br>
         <label for="avatar"> Avatar:</label>
-        <input type="text" class="form-control" value="{{$profile->avatar}}" name="avatar">
+        <input type="file" class="form-control" value="{{$profile->avatar}}" name="avatar">
         <label for="birthday"> Birthday:</label>
         <input type="date" class="form-control" value="{{$profile->birthday}}" name="birthday">
     @else

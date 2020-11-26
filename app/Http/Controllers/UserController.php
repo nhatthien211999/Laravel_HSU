@@ -80,26 +80,14 @@ class UserController extends Controller
             $user->email = $request->email,
         ]);
         if($request->full_name||$request->address||$request->avatar||$request->birthday){
-            if ($user->profiles === null) {
-                $user->profiles()->create([
-
-                    'full_name' => $request->full_name,
-                    'address' => $request->address,
-                    'avatar' => $request->avatar,
-                    'birthday' => $request->birthday,
-                    ]);
-            } else {
                 $user->profiles->update([
                     'full_name' => $request->full_name,
                     'address' => $request->address,
                     'avatar' => $request->avatar,
                     'birthday' => $request->birthday,
                     ]);
-            }
-            
-
         }
-        return redirect(route('users.index'))->with('message','successfully updated');
+        return redirect(route('users.show',compact('user')))->with('message','successfully updated');
     }
 
     /**

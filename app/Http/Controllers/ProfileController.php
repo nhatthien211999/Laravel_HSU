@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 
@@ -94,7 +95,7 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function storeUser(Request $request, User $user)
+    public function storeUser(UserRequest $request, User $user)
     {
         Profile::create([                    
         'full_name' => $request->full_name,
@@ -103,7 +104,8 @@ class ProfileController extends Controller
         'birthday' => $request->birthday,
         'user_id' => $user->id
         ]);
-        redirect()->back();
+
+        return redirect(route('users.show', compact('user')))->with('message','Successful Profile Creation');
     }
     public function createUser(User $user)
     {

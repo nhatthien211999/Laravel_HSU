@@ -32,9 +32,14 @@
         </table>
 
         @if ($user->profiles !== null)
-          @livewire('show-profile',["profile"=> $user->profiles])            
+          @livewire('show-profile',["profile"=> $user->profiles])
+          <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary" role="button">edit</a>
+        @else
+        
+          <a href="{{route('profiles.createUser',$user->id)}}" class="btn btn-success"><span>Create Profile</span></a>
         @endif
-      <a href="{{route('profiles.createUser')}}">Create Profile</a>
+        
+
 
       </div>
     </div>
