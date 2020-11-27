@@ -27,3 +27,4 @@ Route::post('/users/{user}/storeUser',[ProfileController::class, 'storeUser'])->
 Route::resource('users', UserController::class);
 Route::resource('profiles', ProfileController::class);
 
+Route::post('/upload', [UserController::class, 'upload']);

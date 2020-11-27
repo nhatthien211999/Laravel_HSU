@@ -6,6 +6,9 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Dotenv\Store\File\Paths;
+use Illuminate\Support\Facades\Storage;
+use League\CommonMark\Inline\Element\Strong;
+use Illuminate\Http\UploadedFile;
 
 class UserController extends Controller
 {
@@ -79,19 +82,21 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, User $user)
-    {
+    {   
         $user->update([
             $user->name = $request->name,
             $user->email = $request->email,
         ]);
+
         if($request->full_name||$request->address||$request->avatar||$request->birthday){
                 $user->profiles->update([
                     'full_name' => $request->full_name,
                     'address' => $request->address,
-                    'avatar' => $request->avatar,
                     'birthday' => $request->birthday,
                     ]);
+                $this->uploadAvatar($request,$user->profiles);
         }
+
         return redirect(route('users.show',compact('user')))->with('message','successfully updated');
     }
 
@@ -110,5 +115,28 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->back()->with('message','Deleted Successfully');
+    }
+
+
+    public function uploadAvatar($request,$profile){
+        
+        if($request->hasFile('avatar')){
+
+            $filename = $request->image->getClientOriginalName();
+            $this->deleteOldImage($profile);
+            $request->avatar->stroreAs('avatar',$filename,'public');
+            $profile->update(['avatar' => $filename]);
+            
+        }
+
+        
+    }
+
+    protected function deleteOldImage($profile){
+        if($profile->avatar !== null){
+
+            Storage::delete('public/images/'.$profile->avatar);
+
+        }
     }
 }

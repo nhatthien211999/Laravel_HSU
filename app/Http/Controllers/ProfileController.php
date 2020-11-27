@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 
@@ -97,6 +98,7 @@ class ProfileController extends Controller
      */
     public function storeUser(Request $request, User $user)
     {
+
         Profile::create([                    
         'full_name' => $request->full_name,
         'address' => $request->address,
@@ -104,6 +106,9 @@ class ProfileController extends Controller
         'birthday' => $request->birthday,
         'user_id' => $user->id
         ]);
+        
+        $this->uploadAvatar($request,$user->profiles);
+
 
         return redirect(route('users.show', compact('user')))->with('message','Successful Profile Creation');
     }
@@ -111,6 +116,21 @@ class ProfileController extends Controller
     {
         return view('profiles.create', compact('user'));
     }
+
+    public function uploadAvatar($request,$profile){
+
+        if($request->hasFile('avatar')){
+
+            $filename = $request->file('avatar')->getClientOriginalName();
+
+            $request->avatar->storeAs('avatar',$filename,'public');
+            $profile->update(['avatar'=>$filename]);           
+        }
+
+        
+    }
+
+
 
 
 }

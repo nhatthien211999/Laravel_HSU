@@ -12,7 +12,7 @@
 
 
 
-        <form method="POST" action="{{route('profiles.storeUser',$user->id)}}">
+        <form method="POST" action="{{route('profiles.storeUser',$user->id)}}" enctype="multipart/form-data">
 
 
           
@@ -26,12 +26,12 @@
             <input type="text" class="form-control" name="address" >
             <br>
             <label for="avatar"> Avatar:</label>
-            <input type="text" class="form-control" name="avatar">
+            <input type="file" class="form-control" name="avatar">
             <label for="birthday"> Birthday:</label>
             <input type="date" class="form-control" name="birthday">
           </div>        
           <div class="form-group">
-              <input type="submit" class="form-control btn btn-primary" value="Create" >
+              <input type="submit" class="form-control btn btn-primary" name="Create" >
           </div>
         
         </form>

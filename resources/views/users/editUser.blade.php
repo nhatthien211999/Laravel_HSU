@@ -9,7 +9,7 @@
     <div class="card-body">
       <x-alert/>
       <div class="table-responsive">
-        <form method="POST" action="{{route('users.update',$user->id)}}">
+        <form method="POST" action="{{route('users.update',$user->id)}}" enctype="multipart/form-data">
             @csrf
             @method('patch')
           <div class="form-group">
@@ -25,12 +25,12 @@
 
           {{-- profiles --}}
           @if ($user->profiles !== null)
-            @livewire('edit-profile',['profile'=> $user->profiles])
+            @livewire('edit-profile',["profile"=> $user->profiles])
           @endif
 
           
           <div class="form-group">
-              <input type="submit" class="form-control btn btn-primary" value="Update" >
+              <input type="submit" class="form-control btn btn-primary"  name="Update">
           </div>
         
         </form>
