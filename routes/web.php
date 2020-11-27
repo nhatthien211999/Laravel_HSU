@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'index']);
 
 Route::get('/users/{user}/storeUser',[ProfileController::class, 'createUser'])->name('profiles.createUser');
-Route::patch('/users/{user}/storeUser',[ProfileController::class, 'storeUser'])->name('profiles.storeUser');
+Route::post('/users/{user}/storeUser',[ProfileController::class, 'storeUser'])->name('profiles.storeUser');
 
 
 

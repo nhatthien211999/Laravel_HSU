@@ -17,7 +17,7 @@
 
           
             @csrf
-            @method('patch')
+
           <div class="form-group">
             <label for="full_name"> Full Name:</label>
             <input type="text" class="form-control" name="full_name" >

@@ -95,7 +95,7 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function storeUser(UserRequest $request, User $user)
+    public function storeUser(Request $request, User $user)
     {
         Profile::create([                    
         'full_name' => $request->full_name,

@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.createUser');
     }
 
     /**
@@ -39,7 +39,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+        return view('users.showUser')->with('message','Successful..!!');
     }
 
     /**
@@ -96,8 +101,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if($user->profiles !== null){
+            $user->profiles->where('user_id', $user->id)->delete();
+        }
+
+        $user->delete();
+
+        return redirect()->back()->with('message','Deleted Successfully');
     }
 }

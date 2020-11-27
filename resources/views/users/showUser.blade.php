@@ -20,7 +20,24 @@
                     <tr>
                       <td>{{$user->id}}</td>
                       <td><a href="/users/{{$user->id}}">{{$user->name}}</a></td>
-                      <td><a href="/users/{{$user->id}}/edit" class="btn btn-primary" role="button">edit</a></td>
+                      <td>
+                        <a href="/users/{{$user->id}}/edit" class="btn btn-primary" role="button">edit</a>
+
+                        {{-- delete --}}
+                        <a href="#"><span class="fas fa-trash"
+                          onclick="event.preventDefault();
+                          if(confirm('Are you really want to delete ?')){
+                              document.getElementById('form-detele-{{$user->id}}').submit();
+                          } 
+                      "></span></a>
+                      
+                      <form style="display: none" id="{{'form-detele-'.$user->id}}" method="post" action="{{route('users.destroy',$user->id)}}">
+                          @csrf
+                          @method('delete')
+                      </form>
+
+                      </td>
+
                     </tr>
                     @endforeach
                   </tbody>
