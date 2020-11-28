@@ -1,48 +1,163 @@
 @extends('layouts.layout1')
 
 @section('content')
+  <div class="container">
+  <div class="row flex-lg-nowrap">
+  
+  
+    <div class="col">
+      <div class="row">
+        <div class="col mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="e-profile">
+                <div class="row">
+                  <div class="col-12 col-sm-auto mb-3">
+                    <div class="mx-auto" style="width: 140px;">
+                      <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                        @if ($user->profile === null)
+                          <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
+                        @else
+                          <img src="{{ asset('../../../storage/images/'.$user->profile->avatar) }}" width="140px">
+                        @endif
 
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">User Table</h6>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <x-alert/>
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Start date</th>
-            </tr>
-          </thead>
-          <tbody>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                    <div class="text-center text-sm-left mb-2 mb-sm-0">
+                      <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{$user->name}}</h4>
 
-            <tr>
-              <td>{{$user->id}}</td>
-              <td><a>{{$user->name}}</a></td>
-              <td>{{$user->email}}</td>
-              <td>{{$user->password}}</td>
-              <td>{{$user->created_at}}</td>
-            </tr>
-          </tbody>
-        </table>
+                      <div class="mt-2">
+                      </div>
+                    </div>
+                    <div class="text-center text-sm-right">
+                      <span class="badge badge-secondary">administrator</span>
+                    <div class="text-muted"><small>{{$user->created_at}}</small></div>
+                    </div>
+                  </div>
+                </div>
+                <ul class="nav nav-tabs">
+                  <li class="nav-item"><a href="" class="active nav-link">My Profile</a></li>
+                </ul>
+                <div class="tab-content pt-3">
+                  <div class="tab-pane active">
+                    <form class="form" novalidate="">
+                      <div class="row">
+                        <div class="col">
+                          <div class="row">
+                            @if ($user->profile !== null)
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Full Name</label>
+                                <input class="form-control" type="text" name="name" value="{{$user->profile->full_name}}" readonly>
+                              </div>
+                            </div>
+                            @else
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Full Name</label>
+                                <input class="form-control" type="text" name="name" value="" readonly>
+                              </div>
+                            </div>
+                            @endif
 
-        @if ($user->profiles !== null)
-          @livewire('show-profile',["profile"=> $user->profiles])
-          <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary" role="button">edit</a>
-        @else
-        
-          <a href="{{route('profiles.createUser',$user->id)}}" class="btn btn-success"><span>Create Profile</span></a>
-        @endif
-        
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Username</label>
+                              <input class="form-control" type="text" name="username" value="{{$user->name}}" readonly>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" type="text" value="{{$user->email}}" readonly>
+                              </div>
+                            </div>
+                          </div>
+                          @if ($user->profile !== null)
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Birthday</label>
+                                <input class="form-control" type="date" value="{{$user->profile->birthday}}" readonly>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Address</label>
+                                <input class="form-control" type="text" value="{{$user->profile->address}}" readonly>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                          @else
+                          <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Birthday</label>
+                              <input class="form-control" type="date" value="" readonly>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Address</label>
+                              <input class="form-control" type="text" value="" readonly>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                          @endif
 
 
+                      <div class="row">
+                        <div class="col d-flex justify-content-end">
+                          <a href="{{route('users.index')}}" class="btn btn-primary" type="submit" style="color: white">Back</a>
+                        </div>
+                      </div>
+                    </form>
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-12 col-md-3 mb-3">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="px-xl-3">
+                <button class="btn btn-block btn-secondary">
+                  <i class="fa fa-sign-out"></i>
+                  <span>Logout</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title font-weight-bold">Support</h6>
+              @if ($user->profile === null)
+                <a href="{{route('profiles.createUser',$user->id)}}" type="button" class="btn btn-primary" style="color: white">Create My Profile</a>
+              @else
+                <a href="{{route('users.edit',$user->id)}}" type="button" class="btn btn-primary" style="color: white">Edit My Profile</a>
+              @endif
+            
+            </div>
+          </div>
+        </div>
       </div>
+  
     </div>
   </div>
-
+  </div>
 @endsection

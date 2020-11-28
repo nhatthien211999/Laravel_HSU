@@ -28,3 +28,5 @@ Route::resource('users', UserController::class);
 Route::resource('profiles', ProfileController::class);
 
 Route::post('/upload', [UserController::class, 'upload']);
+
+Route::get('avatar/{filename}', [UserController::class,'displayImage'])->name('image.displayImage');

@@ -89,12 +89,12 @@ class UserController extends Controller
         ]);
 
         if($request->full_name||$request->address||$request->avatar||$request->birthday){
-                $user->profiles->update([
+                $user->profile->update([
                     'full_name' => $request->full_name,
                     'address' => $request->address,
                     'birthday' => $request->birthday,
                     ]);
-                $this->uploadAvatar($request,$user->profiles);
+                $this->uploadAvatar($request,$user->profile);
         }
 
         return redirect(route('users.show',compact('user')))->with('message','successfully updated');
@@ -108,8 +108,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if($user->profiles !== null){
-            $user->profiles->where('user_id', $user->id)->delete();
+        if($user->profile !== null){
+            $user->profile->where('user_id', $user->id)->delete();
         }
 
         $user->delete();
@@ -121,10 +121,9 @@ class UserController extends Controller
     public function uploadAvatar($request,$profile){
         
         if($request->hasFile('avatar')){
-
-            $filename = $request->image->getClientOriginalName();
+            $filename = $request->avatar->getClientOriginalName();
             $this->deleteOldImage($profile);
-            $request->avatar->stroreAs('avatar',$filename,'public');
+            $request->avatar->storeAs('images',$filename,'public');
             $profile->update(['avatar' => $filename]);
             
         }
@@ -133,6 +132,7 @@ class UserController extends Controller
     }
 
     protected function deleteOldImage($profile){
+
         if($profile->avatar !== null){
 
             Storage::delete('public/images/'.$profile->avatar);

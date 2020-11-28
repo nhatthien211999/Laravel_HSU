@@ -107,7 +107,7 @@ class ProfileController extends Controller
         'user_id' => $user->id
         ]);
         
-        $this->uploadAvatar($request,$user->profiles);
+        $this->uploadAvatar($request,$user->profile);
 
 
         return redirect(route('users.show', compact('user')))->with('message','Successful Profile Creation');
@@ -123,7 +123,7 @@ class ProfileController extends Controller
 
             $filename = $request->file('avatar')->getClientOriginalName();
 
-            $request->avatar->storeAs('avatar',$filename,'public');
+            $request->avatar->storeAs('images',$filename,'public');
             $profile->update(['avatar'=>$filename]);           
         }
 

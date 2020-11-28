@@ -24,13 +24,13 @@
           </div>
 
           {{-- profiles --}}
-          @if ($user->profiles !== null)
-            @livewire('edit-profile',["profile"=> $user->profiles])
+          @if ($user->profile !== null)
+            @livewire('edit-profile',["profile"=> $user->profile])
           @endif
 
           
           <div class="form-group">
-              <input type="submit" class="form-control btn btn-primary"  name="Update">
+              <input type="submit" class="form-control btn btn-primary"  name="Update" value="Update">
           </div>
         
         </form>
@@ -38,4 +38,5 @@
     </div>
   </div>
 
+  
 @endsection
