@@ -1,0 +1,60 @@
+@extends('layouts.layout1')
+
+@section('content')
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">{{$category->category}}
+              <a href="{{route('categories.createTag',$category->id)}}" type="supmit" class="fas fa-plus-circle" style="color: green"></a>
+            </h4>
+            </div>
+            <div class="card-body">
+              <x-alert/>
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Avatar</th>
+                      <th>Price</th>
+                      <th>Quatity</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($tags as $tag)
+                    <tr>
+                        <td><p>{{$tag->tag}}</p> </td>
+                        <td></td>
+                        <td><p>{{$tag->price}}</p></td>
+                        <td><p>{{$tag->quatity}}</p></td>
+                        <td><p>{{$tag->description}}</p></td>
+                        <td>
+                            {{-- <a href="/users/{{$user->id}}/edit"  role="button">
+                                <span class="fas fa-edit" style="color: green"></span>
+                              </a>
+       --}}
+                            
+                              <a href="#"><span  class="fas fa-trash" style="color: red"
+                                onclick="event.preventDefault();
+                                if(confirm('Are you really want to delete ?')){
+                                    document.getElementById('form-detele-{{$tag->id}}').submit();
+                                } 
+                            "></span></a>
+                                                  
+                      <form style="display: none;" id="{{'form-detele-'.$tag->id}}" method="post" action="{{route('tags.destroy',$tag->id)}}">
+                        @csrf
+                        @method('delete')
+                      </form>
+                        </td>
+
+
+
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+@endsection

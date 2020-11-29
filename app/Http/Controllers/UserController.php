@@ -9,6 +9,7 @@ use Dotenv\Store\File\Paths;
 use Illuminate\Support\Facades\Storage;
 use League\CommonMark\Inline\Element\Strong;
 use Illuminate\Http\UploadedFile;
+use App\Models\Category;
 
 class UserController extends Controller
 {
@@ -19,7 +20,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
         $users = User::all();
         return view('users.showUser',compact('users'));
     }
@@ -42,12 +42,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
-        return view('users.showUser')->with('message','Successful..!!');
+        
     }
 
     /**

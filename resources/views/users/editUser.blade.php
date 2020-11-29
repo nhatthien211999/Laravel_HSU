@@ -32,6 +32,10 @@
           <div class="form-group">
               <input type="submit" class="form-control btn btn-primary"  name="Update" value="Update">
           </div>
+          
+          @if ($user->profile === null)
+              <a href="{{route('profiles.createUser',$user->id)}}" type="button" class="btn btn-primary" style="color: white">Create My Profile</a>
+          @endif
         
         </form>
       </div>

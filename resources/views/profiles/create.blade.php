@@ -12,10 +12,7 @@
 
 
 
-        <form method="POST" action="{{route('profiles.storeUser',$user->id)}}" enctype="multipart/form-data">
-
-
-          
+        <form method="POST" action="{{route('profiles.storeUser',$user->id)}}" enctype="multipart/form-data">         
             @csrf
 
           <div class="form-group">
@@ -31,7 +28,7 @@
             <input type="date" class="form-control" name="birthday">
           </div>        
           <div class="form-group">
-              <input type="submit" class="form-control btn btn-primary" name="Create" >
+              <input type="submit" class="form-control btn btn-primary" name="Create" value="Create">
           </div>
         
         </form>

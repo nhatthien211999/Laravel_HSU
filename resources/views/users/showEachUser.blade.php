@@ -118,11 +118,7 @@
                           @endif
 
 
-                      <div class="row">
-                        <div class="col d-flex justify-content-end">
-                          <a href="{{route('users.index')}}" class="btn btn-primary" type="submit" style="color: white">Back</a>
-                        </div>
-                      </div>
+
                     </form>
   
                   </div>
@@ -136,10 +132,10 @@
           <div class="card mb-3">
             <div class="card-body">
               <div class="px-xl-3">
-                <button class="btn btn-block btn-secondary">
-                  <i class="fa fa-sign-out"></i>
-                  <span>Logout</span>
-                </button>
+                  <a href="{{route('users.index')}}" class="btn btn-block btn-secondary" type="submit" style="color: white">
+                    <i class="fa fa-sign-out"></i>
+                    <span>Back</span>
+                    </a>
               </div>
             </div>
           </div>

@@ -19,19 +19,21 @@
                     @foreach($users as $user)
                     <tr>
                       <td>{{$user->id}}</td>
-                      <td><a href="/users/{{$user->id}}">{{$user->name}}</a></td>
-                      <td>
-                        <a href="/users/{{$user->id}}/edit" class="btn btn-primary" role="button">edit</a>
+                      <td><a href="/users/{{$user->id}}">{{$user->name}}</a>
+
+                        <a href="/users/{{$user->id}}/edit"  role="button">
+                          <span class="fas fa-edit" style="color: green"></span>
+                        </a>
 
                         {{-- delete --}}
-                        <a href="#"><span class="fas fa-trash"
+                        <a href="#"><span  class="fas fa-trash" style="color: red"
                           onclick="event.preventDefault();
                           if(confirm('Are you really want to delete ?')){
                               document.getElementById('form-detele-{{$user->id}}').submit();
                           } 
                       "></span></a>
                       
-                      <form style="display: none" id="{{'form-detele-'.$user->id}}" method="post" action="{{route('users.destroy',$user->id)}}">
+                      <form style="display: none;" id="{{'form-detele-'.$user->id}}" method="post" action="{{route('users.destroy',$user->id)}}">
                           @csrf
                           @method('delete')
                       </form>

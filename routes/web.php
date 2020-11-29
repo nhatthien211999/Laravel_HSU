@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilesController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +30,13 @@ Route::post('/users/{user}/storeUser',[ProfileController::class, 'storeUser'])->
 Route::resource('users', UserController::class);
 Route::resource('profiles', ProfileController::class);
 
-Route::post('/upload', [UserController::class, 'upload']);
 
-Route::get('avatar/{filename}', [UserController::class,'displayImage'])->name('image.displayImage');
+
+
+Route::resource('categories', CategoryController::class);
+
+
+Route::resource('tags', TagController::class);
+
+Route::get('/categories/{category}/createTag',[TagController::class, 'createUser'])->name('categories.createTag');
+Route::post('/categories/{category}/storeTag',[TagController::class, 'storeUser'])->name('categories.storeTag');
