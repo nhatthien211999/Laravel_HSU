@@ -8,6 +8,10 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -56,9 +60,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tag $tag)
     {
-        //
+        return view('tags.edit',compact('tag'));
     }
 
     /**
@@ -68,9 +72,18 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tag $tag)
     {
-        //
+
+
+        $tag->update([
+            'tag' => $request->tag,
+            'price' => $request->price,
+            'quatity' => $request->quatity,
+            'description' => $request->description
+
+        ]);
+        return redirect(route('categories.show',$tag->category_id))->with('message','Update seccessful');
     }
 
     /**
@@ -97,6 +110,7 @@ class TagController extends Controller
         ]);
         return redirect(route('categories.show', compact('category')))->with('message','Successful Tag Creation');
     }
+    
     public function createUser(Category $category)
     {
         return view('categories.create', compact('category'));

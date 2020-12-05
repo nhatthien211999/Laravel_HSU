@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Profile;
 use GuzzleHttp\Psr7\Request;
+use App\Models\Article;
 
 class User extends Authenticatable
 {
@@ -46,12 +47,18 @@ class User extends Authenticatable
 
     //set password
 
-    public function setPasswordAttribute($password){
-        $this->attributes['password'] = bcrypt($password);
-    }
+    // public function setPasswordAttribute($password){
+    //     $this->attributes['password'] = bcrypt($password);
+    // }
+
     public function profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function acticles()
+    {
+        return $this->hasMany(Article::class,'article_tag');
     }
 
 }

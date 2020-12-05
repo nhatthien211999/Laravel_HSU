@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Article;
+
 
 class Tag extends Model
 {
@@ -13,8 +15,8 @@ class Tag extends Model
         'tag','category_id','price','quatity','description',
     ];
 
-    public function category()
+    public function articles()
     {
-        return $this->hasOne(Profile::class);
+        return $this->belongsToMany(Article::class,'article_tag');
     }
 }

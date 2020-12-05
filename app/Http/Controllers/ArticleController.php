@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $acticle =  Article::all();
+
+        return('acticles.index');
     }
 
     /**
@@ -24,7 +33,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
     }
 
     /**
@@ -44,9 +53,12 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        //
+        //chi tiết từng đơn hàng
+
+        $acticle = $article->tags;
+        dd($acticle);
     }
 
     /**
@@ -81,6 +93,44 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
+        return redirect()->back();
+    }
+
+    public function indexShopCart(User $user)
+    {
+        // lấy all đơn hàng của user
+
+        $articles = Article::all()->where('user_id',$user->id);
+
+        // dd($articles);
+
+        
+        return view('articles.show', compact('user','articles'));
+    }
+    // public function showTag(User $user, Article $acticle)
+    // {
+        
+        
+    //     return view('articles.show', compact('user','article'));
+    // }
+
+    public function createArticle(User $user)
+    {
+        $tags = Tag::all();
+        return view('articles.create', compact('user','tags'));
+    }
+
+    public function storeArticle(Request $request ,User $user)
+    {
+        // dd($request);
+        $article = Article::create([
+            'user_id' => $user->id,
+            'body' => $request->body,
+            'title' => 1
+        ]);
+        
+        $article->tags()->attach($request->tag_id,['total_quatity' => $request->quatity, 'total_price' => 20]);
+
         return redirect()->back();
     }
 }

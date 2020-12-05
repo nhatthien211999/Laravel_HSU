@@ -29,10 +29,10 @@
                         <td><p>{{$tag->quatity}}</p></td>
                         <td><p>{{$tag->description}}</p></td>
                         <td>
-                            {{-- <a href="/users/{{$user->id}}/edit"  role="button">
+                          <a href="{{route('tags.edit',$tag->id)}}"  role="button">
                                 <span class="fas fa-edit" style="color: green"></span>
                               </a>
-       --}}
+      
                             
                               <a href="#"><span  class="fas fa-trash" style="color: red"
                                 onclick="event.preventDefault();
@@ -46,9 +46,6 @@
                         @method('delete')
                       </form>
                         </td>
-
-
-
                     </tr>
                     @endforeach
                   </tbody>

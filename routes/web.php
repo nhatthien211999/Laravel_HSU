@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\ProfileController;
@@ -20,15 +21,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [UserController::class, 'index']);
+// Route::get('/', [UserController::class, 'index']);
 
-Route::get('/users/{user}/storeUser',[ProfileController::class, 'createUser'])->name('profiles.createUser');
-Route::post('/users/{user}/storeUser',[ProfileController::class, 'storeUser'])->name('profiles.storeUser');
+Route::get('/users/{user}/create-user',[ProfileController::class, 'createUser'])->name('profiles.createUser');
+Route::post('/users/{user}/create-user',[ProfileController::class, 'storeUser'])->name('profiles.storeUser');
 
 
 
 Route::resource('users', UserController::class);
 Route::resource('profiles', ProfileController::class);
+
+Route::resource('articles', ArticleController::class);
 
 
 
@@ -38,5 +41,17 @@ Route::resource('categories', CategoryController::class);
 
 Route::resource('tags', TagController::class);
 
-Route::get('/categories/{category}/createTag',[TagController::class, 'createUser'])->name('categories.createTag');
-Route::post('/categories/{category}/storeTag',[TagController::class, 'storeUser'])->name('categories.storeTag');
+Route::get('/categories/{category}/create-tag',[TagController::class, 'createUser'])->name('categories.createTag');
+
+Route::post('/categories/{category}/create-tag',[TagController::class, 'storeUser'])->name('categories.storeTag');
+
+Route::get('/users/{user}/articles',[ArticleController::class, 'indexShopCart'])->name('articles.indexShopCart');
+
+Route::get('/users/{user}/articles/{article}',[ArticleController::class, 'showTag'])->name('articles.showTag');
+
+Route::get('/users/{user}/create-articles',[ArticleController::class, 'createArticle'])->name('articles.createArticle');
+Route::post('/users/{user}/create-articles',[ArticleController::class, 'storeArticle'])->name('articles.storeArticle');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
