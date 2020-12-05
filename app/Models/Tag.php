@@ -12,7 +12,7 @@ class Tag extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tag','category_id','price','quatity','description',
+        'tag','category_id','price','quatity','description','image','isLive'
     ];
 
     public function articles()

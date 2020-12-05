@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 
 class TagController extends Controller
 {
@@ -83,6 +84,8 @@ class TagController extends Controller
             'description' => $request->description
 
         ]);
+        $this->uploadAvatar($request,$tag);
+
         return redirect(route('categories.show',$tag->category_id))->with('message','Update seccessful');
     }
 
@@ -94,25 +97,66 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        $tag->delete();
+        $tag->update([
+            'isLive' => 0
+        ]);
 
         return redirect()->back()->with('message','Deleted Successfully');
     }
 
     public function storeUser(Request $request, Category $category)
     {
-        Tag::create([                    
-        'tag' => $request->tag,
-        'category_id' => $category->id,
-        'price' => $request->price,
-        'quatity' => $request->quatity,
-        'description' => $request->description,
-        ]);
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+            $request->image->storeAs('tagImages',$filename,'public'); 
+            Tag::create([                    
+                'tag' => $request->tag,
+                'category_id' => $category->id,
+                'image' => $filename,
+                'price' => $request->price,
+                'quatity' => $request->quatity,
+                'description' => $request->description,
+                'isLive' => 1
+                ]);
+        }
+        else{
+            Tag::create([                    
+                'tag' => $request->tag,
+                'category_id' => $category->id,
+                'price' => $request->price,
+                'quatity' => $request->quatity,
+                'description' => $request->description,
+                'isLive' => 1
+                ]);
+        }
+
         return redirect(route('categories.show', compact('category')))->with('message','Successful Tag Creation');
     }
     
     public function createUser(Category $category)
     {
         return view('categories.create', compact('category'));
+    }
+
+    public function uploadAvatar($request,$tag){
+        
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+            $this->deleteOldImage($tag);
+            $request->image->storeAs('tagImages',$filename,'public');
+            $tag->update(['image' => $filename]);
+            
+        }
+
+        
+    }
+
+    protected function deleteOldImage($tag){
+
+        if($tag->image !== null){
+
+            Storage::delete('public/tagImages/'.$tag->image);
+
+        }
     }
 }

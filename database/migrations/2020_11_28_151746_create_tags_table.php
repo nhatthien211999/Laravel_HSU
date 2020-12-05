@@ -16,14 +16,14 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             //product
             $table->id();
-
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
-
             $table->string('tag');
             $table->decimal('price',10,2);
             $table->integer('quatity');
-            $table->text('description');
+            $table->text('image')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('isLive');
             $table->timestamps();
         });
     }

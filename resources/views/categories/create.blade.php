@@ -19,11 +19,15 @@
             <label for="tag"> Tag:</label>
             <input type="text" class="form-control" name="tag" >
             <br>
+            <label for="image"> Image:</label>
+            <input type="file" class="form-control" name="image" >
+            <br>
             <label for="price"> Price:</label>
             <input type="number" class="form-control" name="price" >
             <br>
             <label for="quatity"> Quatity:</label>
             <input type="number" class="form-control" name="quatity">
+            <br>
             <label for="decription"> Description:</label>
             <input type="text" class="form-control" name="description">
           </div>        

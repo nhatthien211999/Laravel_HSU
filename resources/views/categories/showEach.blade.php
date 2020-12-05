@@ -14,7 +14,7 @@
                   <thead>
                     <tr>
                       <th>Product</th>
-                      <th>Avatar</th>
+                      <th>Image</th>
                       <th>Price</th>
                       <th>Quatity</th>
                       <th>Description</th>
@@ -22,31 +22,38 @@
                   </thead>
                   <tbody>
                     @foreach($tags as $tag)
+
+
                     <tr>
-                        <td><p>{{$tag->tag}}</p> </td>
-                        <td></td>
-                        <td><p>{{$tag->price}}</p></td>
-                        <td><p>{{$tag->quatity}}</p></td>
-                        <td><p>{{$tag->description}}</p></td>
-                        <td>
-                          <a href="{{route('tags.edit',$tag->id)}}"  role="button">
-                                <span class="fas fa-edit" style="color: green"></span>
-                              </a>
-      
-                            
-                              <a href="#"><span  class="fas fa-trash" style="color: red"
-                                onclick="event.preventDefault();
-                                if(confirm('Are you really want to delete ?')){
-                                    document.getElementById('form-detele-{{$tag->id}}').submit();
-                                } 
-                            "></span></a>
-                                                  
-                      <form style="display: none;" id="{{'form-detele-'.$tag->id}}" method="post" action="{{route('tags.destroy',$tag->id)}}">
-                        @csrf
-                        @method('delete')
-                      </form>
-                        </td>
-                    </tr>
+                    @if($tag->isLive !== 0)
+
+                    <td><p>{{$tag->tag}}</p> </td>
+                    <td><img src="{{ asset('/storage/tagImages/'.$tag->image) }}" width="100px"></td>
+                    <td><p>{{$tag->price}}</p></td>
+                    <td><p>{{$tag->quatity}}</p></td>
+                    <td><p>{{$tag->description}}</p></td>
+                    <td>
+                      <a href="{{route('tags.edit',$tag->id)}}"  role="button">
+                            <span class="fas fa-edit" style="color: green"></span>
+                          </a>
+  
+                        
+                          <a href="#"><span  class="fas fa-trash" style="color: red"
+                            onclick="event.preventDefault();
+                            if(confirm('Are you really want to delete ?')){
+                                document.getElementById('form-detele-{{$tag->id}}').submit();
+                            } 
+                        "></span></a>
+                                              
+                  <form style="display: none;" id="{{'form-detele-'.$tag->id}}" method="post" action="{{route('tags.destroy',$tag->id)}}">
+                    @csrf
+                    @method('delete')
+                  </form>
+                    </td>
+                </tr>
+                    
+                    @endif
+                       
                     @endforeach
                   </tbody>
                 </table>

@@ -18,7 +18,7 @@
                         @if ($user->profile === null)
                           <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
                         @else
-                          <img src="{{ asset('../../../storage/images/'.$user->profile->avatar) }}" width="140px">
+                          <img src="{{ asset('storage/images/'.$user->profile->avatar) }}" width="150px">
                         @endif
 
                       </div>

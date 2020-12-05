@@ -102,20 +102,35 @@ class ProfileController extends Controller
      */
     public function storeUser(Request $request, User $user)
     {
+        if($request->hasFile('avatar')){
 
-        Profile::create([                    
-        'full_name' => $request->full_name,
-        'address' => $request->address,
-        'avatar' => $request->avatar,
-        'birthday' => $request->birthday,
-        'user_id' => $user->id
-        ]);
+            $filename = $request->file('avatar')->getClientOriginalName();
+            $request->avatar->storeAs('images',$filename,'public');   
+
+            Profile::create([                    
+                'full_name' => $request->full_name,
+                'address' => $request->address,
+                'avatar' => $filename,
+                'birthday' => $request->birthday,
+                'user_id' => $user->id
+                ]);
+        }
+        else
+        {
+            Profile::create([                    
+                'full_name' => $request->full_name,
+                'address' => $request->address,
+                'birthday' => $request->birthday,
+                'user_id' => $user->id
+                ]);
+        }
+
         
-        $this->uploadAvatar($request,$user->profile);
 
 
         return redirect(route('users.show', compact('user')))->with('message','Successful Profile Creation');
     }
+    
     public function createUser(User $user)
     {
         return view('profiles.create', compact('user'));

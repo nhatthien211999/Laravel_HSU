@@ -14,16 +14,17 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>STT</th>
                       <th>Đơn hàng</th>
                       <th>Ngày Tạo</th>
+                      <th>Title</th>
                     </tr>
                   </thead>
                   <tbody>
                     @foreach($articles as $article)
                     
                     <tr>
-                      <td>{{$article->id}}</td>
+                      <td>{{$loop->index + 1}}</td>
                       <td><a href="{{route('articles.show',$article)}}">{{$article->body}}</a>
 
                         {{-- <a href="/users/{{$user->id}}/edit"  role="button">
@@ -36,6 +37,11 @@
                       </td>
 
                       <td>{{$article->created_at}}</td>
+                      @if($article->title === 1)
+                        <td style="color:white; background: green">Đã giao</td>
+                      @else
+                        <td style="color:white; background: red">Chưa giao</td>
+                      @endif
 
                       
                       <td>

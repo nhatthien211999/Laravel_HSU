@@ -11,7 +11,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>STT</th>
                       <th>Name</th>
                     </tr>
                   </thead>
@@ -19,7 +19,7 @@
                     @foreach($users as $user)
                     
                     <tr>
-                      <td>{{$user->id}}</td>
+                      <td>{{$loop->index + 1}}</td>
                       <td><a href="/users/{{$user->id}}">{{$user->name}}</a>
 
                         <a href="/users/{{$user->id}}/edit"  role="button">

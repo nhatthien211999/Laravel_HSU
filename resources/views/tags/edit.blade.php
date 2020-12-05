@@ -16,11 +16,15 @@
             <label for="tag"> Tag:</label>
             <input type="text" class="form-control" value="{{$tag->tag}}" name="tag" >
             <br>
+            <label for="image"> Image:</label>
+            <input type="file" class="form-control" value="{{$tag->image}}" name="image" >
+            <br>
             <label for="price"> Email:</label>
             <input type="number" class="form-control" value="{{$tag->price}}" name="price" >
             <br>
             <label for="quatity"> Quatity:</label>
             <input type="number" class="form-control" value="{{$tag->quatity}}" name="quatity">
+            <br>
             <label for="description"> Description:</label>
             <input type="text" class="form-control" value="{{$tag->description}}" name="description">
           </div>

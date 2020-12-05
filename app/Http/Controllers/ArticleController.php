@@ -126,7 +126,7 @@ class ArticleController extends Controller
         $article = Article::create([
             'user_id' => $user->id,
             'body' => $request->body,
-            'title' => 1
+            'title' => 0
         ]);
         
         $article->tags()->attach($request->tag_id,['total_quatity' => $request->quatity, 'total_price' => 20]);
