@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Article;
+use App\model\Cart;
 
 
 class Tag extends Model
@@ -15,8 +15,12 @@ class Tag extends Model
         'tag','category_id','price','quatity','description','image','isLive'
     ];
 
-    public function articles()
+    public function carts()
     {
-        return $this->belongsToMany(Article::class,'article_tag');
+        return $this->belongsToMany(Cart::class);
+    }
+    public function categories()
+    {
+        return $this->belongsTo(Category::class,'category_id','id');
     }
 }

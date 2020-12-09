@@ -20,7 +20,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::all();
+        return view('tags.index',compact('tags'));
     }
 
     /**
@@ -30,7 +31,9 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+
+        return view('tags.create', compact('categories'));
     }
 
     /**
@@ -41,7 +44,31 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+            $request->image->storeAs('tagImages',$filename,'public'); 
+            Tag::create([                    
+                'tag' => $request->tag,
+                'category_id' => $request->category_id,
+                'image' => $filename,
+                'price' => $request->price,
+                'quatity' => $request->quatity,
+                'description' => $request->description,
+                'isLive' => 1
+                ]);
+        }
+        else{
+            Tag::create([                    
+                'tag' => $request->tag,
+                'category_id' => $request->category_id,
+                'price' => $request->price,
+                'quatity' => $request->quatity,
+                'description' => $request->description,
+                'isLive' => 1
+                ]);
+        }
+
+        return redirect(route('tags.index'))->with('message','Successful Tag Creation');
     }
 
     /**
@@ -104,7 +131,7 @@ class TagController extends Controller
         return redirect()->back()->with('message','Deleted Successfully');
     }
 
-    public function storeUser(Request $request, Category $category)
+    public function storeTag(Request $request, Category $category)
     {
         if($request->hasFile('image')){
             $filename = $request->image->getClientOriginalName();
@@ -133,7 +160,7 @@ class TagController extends Controller
         return redirect(route('categories.show', compact('category')))->with('message','Successful Tag Creation');
     }
     
-    public function createUser(Category $category)
+    public function createTag(Category $category)
     {
         return view('categories.create', compact('category'));
     }

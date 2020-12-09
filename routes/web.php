@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\ProfileController;
@@ -31,7 +32,7 @@ Route::post('/users/{user}/create-user',[ProfileController::class, 'storeUser'])
 Route::resource('users', UserController::class);
 Route::resource('profiles', ProfileController::class);
 
-Route::resource('articles', ArticleController::class);
+Route::resource('carts', CartController::class);
 
 
 
@@ -41,17 +42,17 @@ Route::resource('categories', CategoryController::class);
 
 Route::resource('tags', TagController::class);
 
-Route::get('/categories/{category}/create-tag',[TagController::class, 'createUser'])->name('categories.createTag');
+Route::get('/categories/{category}/create-tag',[TagController::class, 'createTag'])->name('tags.createTag');
 
-Route::post('/categories/{category}/create-tag',[TagController::class, 'storeUser'])->name('categories.storeTag');
+Route::post('/categories/{category}/create-tag',[TagController::class, 'storeTag'])->name('tags.storeTag');
 
-Route::get('/users/{user}/articles',[ArticleController::class, 'indexShopCart'])->name('articles.indexShopCart');
+Route::get('/users/{user}/carts',[CartController::class, 'indexShopCart'])->name('carts.indexShopCart');
 
-Route::get('/users/{user}/articles/{article}',[ArticleController::class, 'showTag'])->name('articles.showTag');
+Route::get('/users/{user}/carts/{cart}',[CartController::class, 'showTag'])->name('carts.showTag');
 
-Route::get('/users/{user}/create-articles',[ArticleController::class, 'createArticle'])->name('articles.createArticle');
-Route::post('/users/{user}/create-articles',[ArticleController::class, 'storeArticle'])->name('articles.storeArticle');
+Route::get('/users/{user}/create-carts',[CartController::class, 'createCart'])->name('carts.createCart');
+Route::post('/users/{user}/create-carts',[CartController::class, 'storeCart'])->name('carts.storeCart');
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

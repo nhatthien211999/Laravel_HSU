@@ -6,7 +6,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Đơn hàng của {{$user->name}}</h6>
-              <a href="{{route('articles.createArticle',$user->id)}}" type="supmit" class="fas fa-plus-circle" style="color: green"></a>
+              <a href="{{route('carts.createCart',$user->id)}}" type="supmit" class="fas fa-plus-circle" style="color: green"></a>
             </div>
             <div class="card-body">
               <x-alert/>
@@ -21,11 +21,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($articles as $article)
+                    @foreach($carts as $cart)
                     
                     <tr>
                       <td>{{$loop->index + 1}}</td>
-                      <td><a href="{{route('articles.show',$article)}}">{{$article->body}}</a>
+                      <td><a href="{{route('carts.show',$cart)}}">{{$cart->body}}</a>
 
                         {{-- <a href="/users/{{$user->id}}/edit"  role="button">
                           <span class="fas fa-edit" style="color: green"></span>
@@ -36,8 +36,8 @@
 
                       </td>
 
-                      <td>{{$article->created_at}}</td>
-                      @if($article->title === 1)
+                      <td>{{$cart->created_at}}</td>
+                      @if($cart->title === 1)
                         <td style="color:white; background: green">Đã giao</td>
                       @else
                         <td style="color:white; background: red">Chưa giao</td>
@@ -48,11 +48,11 @@
                         <a href="#"><span  class="fas fa-trash" style="color: red"
                           onclick="event.preventDefault();
                           if(confirm('Are you really want to delete ?')){
-                              document.getElementById('form-detele-{{$article->id}}').submit();
+                              document.getElementById('form-detele-{{$cart->id}}').submit();
                           } 
                       "></span></a>
                       
-                      <form style="display: none;" id="{{'form-detele-'.$article->id}}" method="post" action="{{route('articles.destroy',$article->id)}}">
+                      <form style="display: none;" id="{{'form-detele-'.$cart->id}}" method="post" action="{{route('carts.destroy',$cart->id)}}">
                           @csrf
                           @method('delete')
                       </form>

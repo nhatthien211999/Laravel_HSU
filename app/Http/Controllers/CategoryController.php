@@ -50,11 +50,14 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        
         $tag = Tag::all();
         if($tag !== null){
            $tags = $tag->where('category_id', $category->id);
         }
-
+        else{
+            $tags = null;
+        }
 
         return view('categories.showEach',compact('tags','category'));
     }

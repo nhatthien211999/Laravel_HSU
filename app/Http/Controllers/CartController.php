@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Article;
+use App\Models\Cart;
 use App\Models\User;
 use App\Models\Tag;
+use App\Models\Cart_Tag;
 use Illuminate\Http\Request;
 
-class ArticleController extends Controller
+class CartController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,9 +20,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $acticle =  Article::all();
+        $acticle =  Cart::all();
 
-        return('acticles.index');
+        return('carts.index');
     }
 
     /**
@@ -33,7 +32,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        return view('carts.create');
     }
 
     /**
@@ -53,12 +52,23 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Cart $cart)
     {
         //chi tiết từng đơn hàng
 
-        $acticle = $article->tags;
-        dd($acticle);
+        $tags = $cart->tags;
+
+        $user = $cart->user;
+
+        $profile = $user->profile;
+
+        // dd($cart->tags);
+        //1 cart - n tag
+        // foreach($cart->tags as $tag){
+        //     echo $tag->pivot->quantity;
+        // }
+
+        return view('cart-tags.show',compact('tags','user','profile','cart'));
     }
 
     /**
@@ -90,9 +100,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Cart $cart)
     {
-        $article->delete();
+        $cart->delete();
         return redirect()->back();
     }
 
@@ -100,36 +110,31 @@ class ArticleController extends Controller
     {
         // lấy all đơn hàng của user
 
-        $articles = Article::all()->where('user_id',$user->id);
+        $carts = Cart::all()->where('user_id',$user->id);
 
-        // dd($articles);
+        // dd($carts);
 
         
-        return view('articles.show', compact('user','articles'));
+        return view('carts.show', compact('user','carts'));
     }
-    // public function showTag(User $user, Article $acticle)
-    // {
-        
-        
-    //     return view('articles.show', compact('user','article'));
-    // }
+ 
 
-    public function createArticle(User $user)
+    public function createCart(User $user)
     {
         $tags = Tag::all();
-        return view('articles.create', compact('user','tags'));
+        return view('carts.create', compact('user','tags'));
     }
 
-    public function storeArticle(Request $request ,User $user)
+    public function storeCart(Request $request ,User $user)
     {
         // dd($request);
-        $article = Article::create([
+        $cart = Cart::create([
             'user_id' => $user->id,
             'body' => $request->body,
             'title' => 0
         ]);
         
-        $article->tags()->attach($request->tag_id,['total_quatity' => $request->quatity, 'total_price' => 20]);
+        $cart->tags()->attach($request->tag_id,['total_quatity' => $request->quatity, 'total_price' => 20]);
 
         return redirect()->back();
     }

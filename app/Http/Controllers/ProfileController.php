@@ -133,7 +133,7 @@ class ProfileController extends Controller
     
     public function createUser(User $user)
     {
-        return view('profiles.create', compact('user'));
+        return view('profiles.create',compact('user'));
     }
 
     public function uploadAvatar($request,$profile){

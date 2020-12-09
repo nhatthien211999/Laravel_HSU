@@ -58,14 +58,14 @@
                                 </a>
                                 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('articles.indexShopCart', Auth::user()->id )}}">Shop Cart</a>
-                                    
+                                    <a class="dropdown-item" href="{{ route('carts.indexShopCart', Auth::user()->id )}}">Shop Cart</a>
+                                    <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id )}}">My account</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    {{-- {{ route('articles.indexShopCart', Auth::user()->id }} --}}
+                                    {{-- {{ route('carts.indexShopCart', Auth::user()->id }} --}}
                                     
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf

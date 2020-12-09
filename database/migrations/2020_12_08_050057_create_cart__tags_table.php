@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticleTagTable extends Migration
+class CreateCartTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,20 @@ class CreateArticleTagTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_tag', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('cart_tag', function (Blueprint $table) {
+           
 
-            $table->unsignedBigInteger('article_id');
-            $table->foreign('article_id')->references('id')->on('articles');
+            
+            $table->unsignedBigInteger('cart_id');
+            $table->foreign('cart_id')->references('id')->on('carts');
+            
             $table->unsignedBigInteger('tag_id');
             $table->foreign('tag_id')->references('id')->on('tags');
+            $table->primary(['cart_id','tag_id']);
 
             $table->integer('total_quatity');
-
-            $table->decimal('total_price',10,2);
+            $table->integer('total_price');
+            $table->timestamps();
         });
     }
 
@@ -35,6 +37,6 @@ class CreateArticleTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_tag');
+        Schema::dropIfExists('cart_tag');
     }
 }

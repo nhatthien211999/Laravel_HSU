@@ -46,7 +46,7 @@
   <!-- Nav Item - Alerts -->
   <li class="nav-item dropdown no-arrow mx-1">
     {{-- {{ route('articles.indexShopCart', session('user.id'))}} --}}
-  <a class="nav-link dropdown-toggle" href="{{ route('articles.indexShopCart', session('user.id'))}}" id="alertsDropdown" role="button" >
+  <a class="nav-link dropdown-toggle" href="{{ route('carts.indexShopCart', session('user.id'))}}" id="alertsDropdown" role="button" >
       <i class="fas fa-shopping-cart"></i>
       <!-- Counter - Alerts -->
       {{-- <span class="fas fa-shopping-cart">3+</span> --}}

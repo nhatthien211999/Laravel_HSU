@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Profile;
 use GuzzleHttp\Psr7\Request;
-use App\Models\Article;
+use App\Models\Cart;
 
 class User extends Authenticatable
 {
@@ -53,12 +53,13 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class,'user_id','id');
     }
 
-    public function acticles()
+    public function carts()
     {
-        return $this->hasMany(Article::class,'article_tag');
+        return $this->hasMany(Cart::class,'cart_id','id');
     }
+    
 
 }

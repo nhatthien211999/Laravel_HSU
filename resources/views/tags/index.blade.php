@@ -3,8 +3,8 @@
 @section('content')
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-            <h4 class="m-0 font-weight-bold text-primary">{{$category->category}}
-              <a href="{{route('tags.createTag',$category->id)}}" type="supmit" class="fas fa-plus-circle" style="color: green"></a>
+            <h4 class="m-0 font-weight-bold text-primary"> Product
+              <a href="{{route('tags.create')}}" type="supmit" class="fas fa-plus-circle" style="color: green"></a>
             </h4>
             </div>
             <div class="card-body">
@@ -13,7 +13,9 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                    
                       <th>Product</th>
+                      <th>Category</th>
                       <th>Image</th>
                       <th>Price</th>
                       <th>Quatity</th>
@@ -26,6 +28,8 @@
                     @if($tag->isLive !== 0)
 
                     <td><p>{{$tag->tag}}</p> </td>
+
+                    <td><p>{{$tag->categories->category}}</p> </td>
                     <td><img src="{{ asset('/storage/tagImages/'.$tag->image) }}" width="100px"></td>
                     <td><p>{{$tag->price}}</p></td>
                     <td><p>{{$tag->quatity}}</p></td>

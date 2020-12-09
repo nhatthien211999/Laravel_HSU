@@ -11,13 +11,20 @@
  
       <div class="table-responsive">
 
-        <form method="POST" action="{{route('tags.storeTag',$category->id)}}" enctype="multipart/form-data">
+        <form method="POST" action="{{route('tags.store')}}" enctype="multipart/form-data">
         
             @csrf
 
           <div class="form-group">
+
             <label for="tag"> Tag:</label>
             <input type="text" class="form-control" name="tag" >
+            <br>
+            <select name="category_id" class="form-control">
+                @foreach ($categories as $category)
+                    <option value={{$category->id}}> {{$category->category}}</option>
+                @endforeach
+            </select>
             <br>
             <label for="image"> Image:</label>
             <input type="file" class="form-control" name="image" >
