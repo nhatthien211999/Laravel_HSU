@@ -18,8 +18,12 @@
     <span>Product</span></a>
 
   <a class="nav-link" href="{{route('users.index')}}">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
+    <i class="fas fa-user-alt"></i>
   <span>User</span></a>
+  <a class="nav-link" href="{{route('carts.index')}}">
+    <i class="fas fa-shopping-cart"></i>
+    <span>Cart</span>
+</a>
 </li>
 
 <!-- Divider -->

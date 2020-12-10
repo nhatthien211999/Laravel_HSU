@@ -132,7 +132,7 @@
           <div class="card mb-3">
             <div class="card-body">
               <div class="px-xl-3">
-                  <a href="{{route('users.index')}}" class="btn btn-block btn-secondary" type="submit" style="color: white">
+                  <a href="{{route('home')}}" class="btn btn-block btn-secondary" type="submit" style="color: white">
                     <i class="fa fa-sign-out"></i>
                     <span>Back</span>
                     </a>

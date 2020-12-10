@@ -28,6 +28,10 @@ class HomeController extends Controller
         // Session::push('user.id',auth()->user()->id);
         
         Session::put('user.id', auth()->user()->id);
+        Session::put('user.name', auth()->user()->name);
+        if(auth()->user()->profile != null){
+            Session::put('user.avatar', auth()->user()->profile->avatar);
+        }
 
         // dd(Session::get('user.id'));
         return view('home');

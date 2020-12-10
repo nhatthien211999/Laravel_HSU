@@ -20,9 +20,9 @@ class CartController extends Controller
      */
     public function index()
     {
-        $acticle =  Cart::all();
-
-        return('carts.index');
+        $carts =  Cart::all();
+        
+        return view('carts.index',compact('carts'));
     }
 
     /**
@@ -137,5 +137,14 @@ class CartController extends Controller
         $cart->tags()->attach($request->tag_id,['total_quatity' => $request->quatity, 'total_price' => 20]);
 
         return redirect()->back();
+    }
+
+    public function search(Request $request)
+    {
+        $cart = Cart::all();
+
+        $carts = $cart->where('created_at','>=',$request->from.' 00:00:00')
+                    ->where('created_at','<=',$request->to.' 23:59:59');
+        return view('carts.index',compact('carts'));
     }
 }

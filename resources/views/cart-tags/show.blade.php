@@ -171,7 +171,10 @@
         </tr>
       </thead>
       <tbody>
-        <h4>Chi tiết đơn hàng</h4>
+        <h4>Chi tiết đơn hàng
+        <a href="{{route('cartTag.createCartTag',$cart->id)}}" type="supmit" class="fas fa-plus-circle" style="color: green"></a>
+      </h4>
+      <x-alert></x-alert>
         @foreach($tags as $tag)
         
         <tr>
@@ -196,11 +199,11 @@
             <a href="#"><span  class="fas fa-trash" style="color: red"
               onclick="event.preventDefault();
               if(confirm('Are you really want to delete ?')){
-                  document.getElementById('form-detele-{{$cart->id}}').submit();
+                  document.getElementById('form-detele-{{$tag->id}}').submit();
               } 
           "></span></a>
           
-          <form style="display: none;" id="{{'form-detele-'.$cart->id}}" method="post" action="{{route('carts.destroy',$cart->id)}}">
+          <form style="display: none;" id="{{'form-detele-'.$tag->id}}" method="post" action="{{route('carttag.destroy',[$cart->id,$tag->id])}}">
               @csrf
               @method('delete')
           </form>

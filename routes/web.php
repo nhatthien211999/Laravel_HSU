@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartTagController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\ProfileController;
@@ -56,3 +57,10 @@ Route::post('/users/{user}/create-carts',[CartController::class, 'storeCart'])->
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::delete('/carts/{cart}/tags/{tag}/delete',[CartTagController::class, 'destroy'])->name('carttag.destroy');
+Route::get('/carts/{cart}/create-cart-tag',[CartTagController::class, 'createCartTag'])->name('cartTag.createCartTag');
+Route::post('/carts/{cart}/create-cart-tag',[CartTagController::class, 'storeCartTag'])->name('cartTag.storeCartTag');
+
+Route::post('/search',[CartController::class, 'search'])->name('carts.search');
+
