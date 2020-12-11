@@ -20,18 +20,6 @@
             <label for="body"> Body:</label>
             <input type="text" class="form-control" name="body" >
             <br>
-            <label for="cars">Choose a Tag:</label>
-            <select name="tag_id" class="form-control">
-            @foreach ($tags as $tag)
-                <option value={{$tag->id}}> {{$tag->tag}}</option>
-            @endforeach
-            </select>
-            <br>
-            <label for="quatity"> Quatity:</label>
-            <input type="number" class="form-control" name="quatity">
-            <br>
-            <label for="total"> Total:</label>
-            <input type="text" class="form-control" name="total">
           </div>        
           <div class="form-group">
               <input type="submit" class="form-control btn btn-primary" name="Create" value="Create">

@@ -20,10 +20,10 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts =  Cart::all();
-        
+        $carts =  Cart::all()->sortByDesc('created_at');
         return view('carts.index',compact('carts'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -127,14 +127,11 @@ class CartController extends Controller
 
     public function storeCart(Request $request ,User $user)
     {
-        // dd($request);
-        $cart = Cart::create([
+        Cart::create([
             'user_id' => $user->id,
             'body' => $request->body,
             'title' => 0
         ]);
-        
-        $cart->tags()->attach($request->tag_id,['total_quatity' => $request->quatity, 'total_price' => 20]);
 
         return redirect()->back();
     }
@@ -146,5 +143,9 @@ class CartController extends Controller
         $carts = $cart->where('created_at','>=',$request->from.' 00:00:00')
                     ->where('created_at','<=',$request->to.' 23:59:59');
         return view('carts.index',compact('carts'));
+    }
+    public function filter()
+    {
+        
     }
 }
