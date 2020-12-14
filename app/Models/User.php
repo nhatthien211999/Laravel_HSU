@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Profile;
 use GuzzleHttp\Psr7\Request;
 use App\Models\Cart;
+use App\models\Role;
 
 class User extends Authenticatable
 {
@@ -61,6 +62,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cart::class,'cart_id','id');
     }
-    
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function hasRole($role) {
+
+        return $this->role->role == $role;
+    }
 }

@@ -11,11 +11,14 @@ use League\CommonMark\Inline\Element\Strong;
 use Illuminate\Http\UploadedFile;
 use App\Models\Category;
 
+use Mail;
+
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','role: 1'],['except' => ['show']]);
+
     }
     /**
      * Display a listing of the resource.
@@ -57,9 +60,20 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        // dd($user->profiles);
-        return view("users.showEachUser", compact('user'));
+        if(auth()->user()->role->role == 1){
+            return view("users.showEachUser", compact('user'));
+        }
 
+
+        if(auth()->user()->id == $user->id)//0 là editor 1 admin
+        {
+
+            return view("users.showEachUser", compact('user'));
+
+        }
+
+
+        return view("home");
     }
 
     /**
@@ -138,4 +152,6 @@ class UserController extends Controller
 
         }
     }
+
+
 }

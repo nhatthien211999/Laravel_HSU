@@ -16,10 +16,11 @@
   <a class="nav-link" href="{{route('tags.index')}}">
     <i class="fas fa-fw fa-tachometer-alt"></i>
     <span>Product</span></a>
-
-  <a class="nav-link" href="{{route('users.index')}}">
-    <i class="fas fa-user-alt"></i>
-  <span>User</span></a>
+  @if(auth()->user()->role->role == 1)
+      <a class="nav-link" href="{{route('users.index')}}">
+        <i class="fas fa-user-alt"></i>
+      <span>User</span></a>
+  @endif
   <a class="nav-link" href="{{route('carts.index')}}">
     <i class="fas fa-shopping-cart"></i>
     <span>Cart</span>

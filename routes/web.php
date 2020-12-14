@@ -4,12 +4,14 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartTagController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Models\Tag;
+use Illuminate\Notifications\Channels\MailChannel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,12 +27,13 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', [UserController::class, 'index']);
 
-Route::get('/users/{user}/create-user',[ProfileController::class, 'createUser'])->name('profiles.createUser');
-Route::post('/users/{user}/create-user',[ProfileController::class, 'storeUser'])->name('profiles.storeUser');
+Route::get('/users/{user}/create-user',[ProfileController::class, 'createUserProfile'])->name('profiles.createUser');
+Route::post('/users/{user}/create-user',[ProfileController::class, 'storeUserProfile'])->name('profiles.storeUser');
 
 
 
 Route::resource('users', UserController::class);
+
 Route::resource('profiles', ProfileController::class);
 
 Route::resource('carts', CartController::class);
@@ -63,4 +66,6 @@ Route::get('/carts/{cart}/create-cart-tag',[CartTagController::class, 'createCar
 Route::post('/carts/{cart}/create-cart-tag',[CartTagController::class, 'storeCartTag'])->name('cartTag.storeCartTag');
 
 Route::post('/search',[CartController::class, 'search'])->name('carts.search');
+
+Route::get('/mail',[MailController::class, 'sendEmail'])->name('users.mail');
 

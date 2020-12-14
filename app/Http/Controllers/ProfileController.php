@@ -13,7 +13,7 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
     /**
      * Display a listing of the resource.
@@ -100,7 +100,7 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function storeUser(Request $request, User $user)
+    public function storeUserProfile(Request $request, User $user)
     {
         if($request->hasFile('avatar')){
 
@@ -131,7 +131,7 @@ class ProfileController extends Controller
         return redirect(route('users.show', compact('user')))->with('message','Successful Profile Creation');
     }
     
-    public function createUser(User $user)
+    public function createUserProfile(User $user)
     {
         return view('profiles.create',compact('user'));
     }
