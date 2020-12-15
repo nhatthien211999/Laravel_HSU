@@ -102,8 +102,10 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
+        //Xóa đơn hàng
+        $cart->tags()->detach();
         $cart->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message','Xóa đơn hàng thành công');
     }
 
     public function indexShopCart(User $user)
@@ -111,8 +113,7 @@ class CartController extends Controller
         // lấy all đơn hàng của user
 
         $carts = Cart::all()->where('user_id',$user->id);
-
-        // dd($carts);
+        // dd($user->carts);
 
         
         return view('carts.show', compact('user','carts'));
@@ -121,6 +122,7 @@ class CartController extends Controller
 
     public function createCart(User $user)
     {
+        //tạo cart
         $tags = Tag::all();
         return view('carts.create', compact('user','tags'));
     }
@@ -133,7 +135,7 @@ class CartController extends Controller
             'title' => 0
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('message','Tạo đơn hàng thành công');
     }
 
     public function search(Request $request)

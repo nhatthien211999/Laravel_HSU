@@ -55,12 +55,12 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne(Profile::class,'user_id','id');
+        return $this->hasOne(Profile::class);
     }
 
     public function carts()
     {
-        return $this->hasMany(Cart::class,'cart_id','id');
+        return $this->hasMany(Cart::class);
     }
 
     public function role()

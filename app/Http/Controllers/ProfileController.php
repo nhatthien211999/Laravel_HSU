@@ -100,6 +100,13 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function createUserProfile(User $user)
+    {
+        return view('profiles.create',compact('user'));
+    }
+
+
     public function storeUserProfile(Request $request, User $user)
     {
         if($request->hasFile('avatar')){
@@ -124,17 +131,10 @@ class ProfileController extends Controller
                 'user_id' => $user->id
                 ]);
         }
-
-        
-
-
-        return redirect(route('users.show', compact('user')))->with('message','Successful Profile Creation');
+        return redirect(route('users.show', compact('user')))->with('message','Tạo profile thành công');
     }
     
-    public function createUserProfile(User $user)
-    {
-        return view('profiles.create',compact('user'));
-    }
+
 
     public function uploadAvatar($request,$profile){
 

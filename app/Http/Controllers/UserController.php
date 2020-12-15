@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth','role: 1'],['except' => ['show']]);
+        $this->middleware(['auth','role: 1'],['except' => ['show','edit','update']]);
 
     }
     /**
@@ -27,7 +27,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        //hiển thị danh sách user
+        $users = User::all()->sortByDesc('created_at');
         return view('users.showUser',compact('users'));
     }
 
@@ -60,6 +61,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        //chi tiết user
         if(auth()->user()->role->role == 1){
             return view("users.showEachUser", compact('user'));
         }
@@ -84,7 +86,20 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view("users.editUser", compact('user'));
+        if(auth()->user()->role->role == 1){
+            return view("users.editUser", compact('user'));
+        }
+
+
+        if(auth()->user()->id == $user->id)//0 là editor 1 admin
+        {
+
+            return view("users.editUser", compact('user'));
+
+        }
+
+
+        return view("home");
     }
 
     /**
@@ -122,12 +137,16 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if($user->profile !== null){
-            $user->profile->where('user_id', $user->id)->delete();
+            $user->profile->delete();
+        }
+        foreach($user->carts as $t){
+            $t->tags()->detach();
+            $t->delete();
         }
 
         $user->delete();
 
-        return redirect()->back()->with('message','Deleted Successfully');
+        return redirect()->back()->with('message','Xóa user thành công');
     }
 
 

@@ -32,7 +32,11 @@
                       </div>
                     </div>
                     <div class="text-center text-sm-right">
-                      <span class="badge badge-secondary">administrator</span>
+                      @if($user->role_id === 2)
+                        <span class="badge badge-secondary">administrator</span>
+                      @else
+                        <span class="badge badge-secondary">Editer</span>
+                      @endif
                     <div class="text-muted"><small>{{$user->created_at}}</small></div>
                     </div>
                   </div>

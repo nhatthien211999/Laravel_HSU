@@ -8,11 +8,9 @@
         <br>
 
         <label for="avatar"> Avatar:</label>
-        <input type="file" class="form-control" name="avatar">
+        <input type="file" class="form-control" name="avatar" value="{{$profile->avatar}}" >
 
         <label for="birthday"> Birthday:</label>
         <input type="date" class="form-control" value="{{$profile->birthday}}" name="birthday">
     @endif
-
-
 </div>
