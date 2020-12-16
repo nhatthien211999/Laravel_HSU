@@ -69,5 +69,5 @@ Route::patch('/filter',[CartController::class, 'filter'])->name('carts.filter');
 Route::post('/carts/{cart}/is-live',[CartController::class, 'isLive'])->name('carts.isLive');
 Route::post('/search',[CartController::class, 'search'])->name('carts.search');
 
-Route::get('/mail',[MailController::class, 'sendEmail'])->name('users.mail');
+Route::get('/gmail',[MailController::class, 'sendEmail'])->name('gmail');
 
