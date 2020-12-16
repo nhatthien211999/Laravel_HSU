@@ -105,7 +105,7 @@ class CartController extends Controller
         //Xóa đơn hàng
         $cart->tags()->detach();
         $cart->delete();
-        return redirect()->back()->with('message','Xóa đơn hàng thành công');
+        return redirect(route('carts.index'))->with('message','Xóa đơn hàng thành công');
     }
 
     public function indexShopCart(User $user)
@@ -148,6 +148,23 @@ class CartController extends Controller
     }
     public function filter()
     {
-        
+        $carts =  Cart::all()->sortByDesc('title');
+        return view('carts.index',compact('carts'));
+    }
+    public function isLive(Cart $cart)
+    {
+        if($cart->title == 0)
+        {
+            $cart->update([
+                'title' => 1
+            ]);
+        }
+        else
+        {
+            $cart->update([
+                'title' => 0
+            ]);
+        }
+        return redirect(route('carts.index'))->with('message','Cập nhập trạng thái thành công');
     }
 }

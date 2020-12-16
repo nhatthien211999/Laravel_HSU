@@ -16,7 +16,6 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        echo $role;
 
         //$role la bien nhan tu route dinh nghia trong routes/web.php
         if(!$request->user()){//neu user chua ton tai, co nghia chua dang nhap truoc do

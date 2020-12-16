@@ -21,7 +21,18 @@
                       <th>Đơn hàng</th>
                       <th>Chủ đơn hàng</th>
                       <th>Ngày Tạo</th>
-                      <th>Title</th>
+                      <th>
+                        <a href="#"><span  
+                        onclick="event.preventDefault();
+                            document.getElementById('form-detele-filter').submit();">
+                            Trạng thái đơn hàng
+                          </span></a>
+
+                        <form style="display: none;" id="form-detele-filter" method="post" action="{{route('carts.filter')}}">
+                            @csrf
+                            @method('patch')
+                        </form>
+                    </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -42,11 +53,22 @@
                       <td>{{$cart->user->name}}</td>
                       <td>{{$cart->created_at}}</td>
                       @if($cart->title === 1)
-                        <td style="color:white; background: green">Đã giao</td>
+                        <td style="color:white; background: green">
+                          <a><span  
+                          onclick="event.preventDefault();
+                              document.getElementById('form-islive-{{$cart->id}}').submit();">Đã giao</span>
+                          </a></td>
                       @else
-                        <td style="color:white; background: red">Chưa giao</td>
+                        <td style="color:white; background: red">                          
+                          <a><span  
+                          onclick="event.preventDefault();
+                              document.getElementById('form-islive-{{$cart->id}}').submit();">Chưa giao</span>
+                          </a></td>
                       @endif
-
+                      <form style="display: none;" id="{{'form-islive-'.$cart->id}}" method="post" action="{{route('carts.isLive',$cart->id)}}">
+                        @csrf
+                        @method('post')
+                    </form>
                       
                       <td>
                         <a href="#"><span  class="fas fa-trash" style="color: red"

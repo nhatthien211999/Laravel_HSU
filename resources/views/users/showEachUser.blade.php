@@ -35,7 +35,7 @@
                       @if($user->role_id === 2)
                         <span class="badge badge-secondary">administrator</span>
                       @else
-                        <span class="badge badge-secondary">Editer</span>
+                        <span class="badge badge-secondary">Editor</span>
                       @endif
                     <div class="text-muted"><small>{{$user->created_at}}</small></div>
                     </div>

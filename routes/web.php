@@ -65,6 +65,8 @@ Route::delete('/carts/{cart}/tags/{tag}/delete',[CartTagController::class, 'dest
 Route::get('/carts/{cart}/create-cart-tag',[CartTagController::class, 'createCartTag'])->name('cartTag.createCartTag');
 Route::post('/carts/{cart}/create-cart-tag',[CartTagController::class, 'storeCartTag'])->name('cartTag.storeCartTag');
 
+Route::patch('/filter',[CartController::class, 'filter'])->name('carts.filter');
+Route::post('/carts/{cart}/is-live',[CartController::class, 'isLive'])->name('carts.isLive');
 Route::post('/search',[CartController::class, 'search'])->name('carts.search');
 
 Route::get('/mail',[MailController::class, 'sendEmail'])->name('users.mail');
