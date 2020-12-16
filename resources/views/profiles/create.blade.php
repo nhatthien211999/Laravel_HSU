@@ -27,7 +27,7 @@
           <input type="file" class="form-control" name="avatar">
           <br>
           <label for="birthday"> Birthday:</label>
-          <input type="date" class="form-control" name="birthdaybirthday">
+          <input type="date" class="form-control" name="birthday">
         </div>        
         <div class="form-group">
             <input type="submit" class="form-control btn btn-primary" name="Create" value="Create">

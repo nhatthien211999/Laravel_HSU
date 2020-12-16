@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
 
@@ -109,6 +110,28 @@ class ProfileController extends Controller
 
     public function storeUserProfile(Request $request, User $user)
     {
+        $rules = [
+            'full_name' => 'required|max:255',
+            'address' => 'required',
+            'avatar' => 'required',
+            'birthday'=>'required'
+        ];
+
+        $messages = [
+           'full_name.required' => 'Vui lòng nhập họ và tên',
+           'full_name.max' => 'Họ và tên không quá 255 ký tự',
+           'avatar.required' => 'Vui lòng chọn ảnh',
+           'address.required' => 'Vui lòng nhập địa chỉ',
+           'birthday.required'=>'Nhập ngày sinh của bạn',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         if($request->hasFile('avatar')){
 
             $filename = $request->file('avatar')->getClientOriginalName();

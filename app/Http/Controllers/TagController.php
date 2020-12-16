@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class TagController extends Controller
 {
@@ -29,6 +30,8 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     //tạo SP 
     public function create()
     {
         $categories = Category::all();
@@ -44,6 +47,31 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'tag' => 'required|max:255',
+            'category_id' => 'required',
+            'image' => 'required',
+            'price' => 'required',
+            'quatity' => 'required',
+            'description' => 'required'
+        ];
+
+        $messages = [
+           'tag.required' => 'Vui lòng nhập SP',
+           'tag.max' => 'Tên SP không quá 255 ký tự',
+           'image.required' => 'Vui lòng chọn ảnh',
+           'price.required' => 'Vui lòng nhập giá SP',
+           'quatity.required' => 'Vui lòng nhập số lượng SP',
+           'description.required' => 'Vui lòng nhập mô tả SP'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         if($request->hasFile('image')){
             $filename = $request->image->getClientOriginalName();
             $request->image->storeAs('tagImages',$filename,'public'); 
@@ -102,7 +130,29 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
+        $rules = [
+            'tag' => 'required|max:255',
+            'image' => 'required',
+            'price' => 'required',
+            'quatity' => 'required',
+            'description' => 'required'
+        ];
 
+        $messages = [
+           'tag.required' => 'Vui lòng nhập SP',
+           'tag.max' => 'Tên SP không quá 255 ký tự',
+           'image.required' => 'Vui lòng chọn ảnh',
+           'price.required' => 'Vui lòng nhập giá SP',
+           'quatity.required' => 'Vui lòng nhập số lượng SP',
+           'description.required' => 'Vui lòng nhập mô tả SP'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $tag->update([
             'tag' => $request->tag,
@@ -131,8 +181,39 @@ class TagController extends Controller
         return redirect()->back()->with('message','Deleted Successfully');
     }
 
+
+    //tạo SP theo danh mục
+    public function createTag(Category $category)
+    {
+        return view('categories.create', compact('category'));
+    }
+
     public function storeTag(Request $request, Category $category)
     {
+        $rules = [
+            'tag' => 'required|max:255',
+            'image' => 'required',
+            'price' => 'required',
+            'quatity' => 'required',
+            'description' => 'required'
+        ];
+
+        $messages = [
+           'tag.required' => 'Vui lòng nhập SP',
+           'tag.max' => 'Tên SP không quá 255 ký tự',
+           'image.required' => 'Vui lòng chọn ảnh',
+           'price.required' => 'Vui lòng nhập giá SP',
+           'quatity.required' => 'Vui lòng nhập số lượng SP',
+           'description.required' => 'Vui lòng nhập mô tả SP'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         if($request->hasFile('image')){
             $filename = $request->image->getClientOriginalName();
             $request->image->storeAs('tagImages',$filename,'public'); 
@@ -160,10 +241,6 @@ class TagController extends Controller
         return redirect(route('categories.show', compact('category')))->with('message','Successful Tag Creation');
     }
     
-    public function createTag(Category $category)
-    {
-        return view('categories.create', compact('category'));
-    }
 
     public function uploadAvatar($request,$tag){
         

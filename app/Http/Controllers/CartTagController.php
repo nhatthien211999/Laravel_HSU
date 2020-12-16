@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\models\Cart;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CartTagController extends Controller
 {
@@ -22,6 +23,22 @@ class CartTagController extends Controller
 
     public function storeCartTag(Request $request ,Cart $cart)
     {
+
+        $rules = [
+            'total' => 'required'
+        ];
+
+        $messages = [
+           'total.required' => 'Vui lòng nhập số lượng SP'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $islive = false;
         $tag = Tag::find($request->tag_id);
         $price = $tag->price;   
